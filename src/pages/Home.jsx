@@ -1,18 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getFeedsAPI } from "../store/feeds/feeds.action";
 
 const Home = () => {
-  const [feeds, setFeeds] = useState([]);
+
+  const dispatch=useDispatch()
+  const {data,getFeeds}=useSelector((state)=>state.feeds)
+
+  // const [feeds, setFeeds] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:8080/feeds").then((r) => {
-      setFeeds(r.data);
-    });
+
+    if(data.length==0)
+    {
+      dispatch(getFeedsAPI());
+    }
+
+    
   }, []);
   return (
     <div>
       <h1>Home</h1>
       <br />
-      {feeds.map((feed) => (
+      {getFeeds.loading && <div>...Loading</div> }
+      {getFeeds.error && <div>An Error occured</div> }
+      {data.map((feed) => (
         <div
           key={feed.id}
           style={{
