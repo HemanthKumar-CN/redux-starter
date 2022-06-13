@@ -7,9 +7,11 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import RequiredAuth from "./RequiredAuth";
 
+
+
 function App() {
   const navigate=useNavigate();
-
+//  this is sophisticated way of writing code.
 
   const {isAuth}=useSelector((state)=>state.auth)
 
